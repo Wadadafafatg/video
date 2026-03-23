@@ -1,0 +1,38 @@
+name: video
+
+on:
+  push:
+    branches:
+      - main
+      - codex
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # تحميل الكود من GitHub
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      # إعداد Java JDK 17
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      # السماح بتنفيذ Gradle
+      - name: Grant Gradle permission
+        run: chmod +x gradlew
+
+      # بناء APK نسخة Debug
+      - name: Build APK
+        run: ./gradlew assembleDebug
+
+      # رفع APK كـ Artifact
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: video-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
