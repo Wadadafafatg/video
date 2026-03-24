@@ -259,3 +259,5 @@ fun RenameDialog(name: String, onNameChange: (String) -> Unit, onDismiss: () -> 
         dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel", color = Color.Gray) } }
     )
 }
+
+//هذا كود
